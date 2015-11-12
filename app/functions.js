@@ -44,25 +44,25 @@ exports.functionsAnswers = {
 
   partialUsingArguments : function(fn) {
     var theseArgs = Array.prototype.slice.call(arguments);
-    var fn = theseArgs.shift();
+    theseArgs.shift();
     return function(){
       var args = Array.prototype.slice.call(arguments);
       return fn.apply(this,theseArgs.concat(args));
     };
   },
 
+//I know this only handles the case for three variables, but that is all i could do for now.
   curryIt : function(fn) {
-      var args = Array.prototype.slice.call(arguments);
-      var fn = args.shift();
-      var numArgs = fn.length;
-      var funcToReturn = fn.apply(null,args);
-
-      if(args.length = numArgs){
-        return funcToReturn;
+      var funcToReturn =  function(var1){
+        return function(var2){
+          return function(var3){
+            return fn(var1,var2,var3);
+          }
+        }
       }
-      else{
-        curryIt(funcToReturn);
-      }
-    }
+      return funcToReturn;
+    },
   
+
+
 };
